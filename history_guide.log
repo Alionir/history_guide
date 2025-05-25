@@ -1,0 +1,713 @@
+2025-05-25 20:36:57,851 - core.database - INFO - Database connection pool initialized successfully
+2025-05-25 20:37:00,510 - __main__ - INFO - Login cancelled by user
+2025-05-25 20:37:00,511 - core.database - INFO - Database connection pool closed
+2025-05-25 20:53:19,823 - core.database - INFO - Database connection pool initialized successfully
+2025-05-25 20:53:29,092 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x20e99da1be0>
+2025-05-25 20:53:29,370 - core.auth - INFO - User magcurie authenticated successfully
+2025-05-25 20:53:30,386 - __main__ - INFO - User logged in successfully: magcurie
+2025-05-25 20:53:30,612 - ui.main_window - INFO - Main window opened for user: magcurie
+2025-05-25 20:53:30,708 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x20e99da1be0>
+2025-05-25 20:53:30,920 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x20e99da1be0>
+2025-05-25 20:53:31,118 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x20e99e20a50>
+2025-05-25 20:53:31,153 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x20e99da1be0>
+2025-05-25 20:53:31,326 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x20e99e20a50>
+2025-05-25 20:53:31,364 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x20e99da1be0>
+2025-05-25 20:53:31,530 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x20e99e20a50>
+2025-05-25 20:53:31,537 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x20e99e20cd0>
+2025-05-25 20:53:31,586 - core.database - ERROR - Error executing function sp_log_user_action with params (3, 'PERSONS_LIST_VIEWED', None, None, 'Просмотр списка персон', None, None, None, None): column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:53:31,655 - core.database - ERROR - Database error: column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:53:31,656 - data_access.base_repository - ERROR - Error executing function sp_log_user_action: column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:53:31,657 - services.base_service - ERROR - Failed to log action: Database operation failed: column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:53:31,735 - core.database - ERROR - Error executing function sp_log_user_action with params (3, 'COUNTRIES_LIST_VIEWED', None, None, 'Просмотр списка стран', None, None, None, None): column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:53:31,741 - core.database - ERROR - Error executing function sp_log_user_action with params (3, 'EVENTS_LIST_VIEWED', None, None, 'Просмотр списка событий', None, None, None, None): column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:53:31,795 - core.database - ERROR - Error executing function sp_log_user_action with params (3, 'DOCUMENTS_LIST_VIEWED', None, None, 'Просмотр списка документов', None, None, None, None): column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:53:31,803 - core.database - ERROR - Database error: column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:53:31,804 - data_access.base_repository - ERROR - Error executing function sp_log_user_action: column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:53:31,804 - services.base_service - ERROR - Failed to log action: Database operation failed: column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:53:31,811 - core.database - ERROR - Database error: column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:53:31,811 - data_access.base_repository - ERROR - Error executing function sp_log_user_action: column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:53:31,811 - services.base_service - ERROR - Failed to log action: Database operation failed: column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:53:31,904 - core.database - ERROR - Database error: column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:53:31,905 - data_access.base_repository - ERROR - Error executing function sp_log_user_action: column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:53:31,905 - services.base_service - ERROR - Failed to log action: Database operation failed: column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:53:31,975 - core.database - ERROR - Error executing function sp_log_user_action with params (3, 'SOURCES_LIST_VIEWED', None, None, 'Просмотр списка источников', None, None, None, None): column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:53:31,975 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x20e99e20cd0>
+2025-05-25 20:53:32,045 - core.database - ERROR - Database error: column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:53:32,045 - data_access.base_repository - ERROR - Error executing function sp_log_user_action: column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:53:32,046 - services.base_service - ERROR - Failed to log action: Database operation failed: column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:53:32,046 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x20e99da1be0>
+2025-05-25 20:53:32,184 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x20e99dd63f0>
+2025-05-25 20:53:32,258 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x20e99e20cd0>
+2025-05-25 20:53:32,391 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x20e99e20a50>
+2025-05-25 20:53:32,465 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x20e99da1be0>
+2025-05-25 20:53:32,598 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x20e99dd63f0>
+2025-05-25 20:53:32,673 - core.database - ERROR - Error executing function sp_get_user_activity_stats with params (datetime.datetime(2025, 5, 18, 20, 53, 32, 534970), datetime.datetime(2025, 5, 25, 20, 53, 32, 534983)): column al.action_type does not exist
+LINE 1: SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTI...
+               ^
+QUERY:  SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTINCT al.user_id) as unique_users
+    FROM public.audit_logs al
+    WHERE al.created_at BETWEEN p_start_date AND p_end_date
+    GROUP BY al.action_type
+    ORDER BY action_count DESC
+CONTEXT:  PL/pgSQL function sp_get_user_activity_stats(timestamp without time zone,timestamp without time zone) line 3 at RETURN QUERY
+2025-05-25 20:53:32,741 - core.database - ERROR - Database error: column al.action_type does not exist
+LINE 1: SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTI...
+               ^
+QUERY:  SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTINCT al.user_id) as unique_users
+    FROM public.audit_logs al
+    WHERE al.created_at BETWEEN p_start_date AND p_end_date
+    GROUP BY al.action_type
+    ORDER BY action_count DESC
+CONTEXT:  PL/pgSQL function sp_get_user_activity_stats(timestamp without time zone,timestamp without time zone) line 3 at RETURN QUERY
+2025-05-25 20:53:32,741 - data_access.base_repository - ERROR - Error executing function sp_get_user_activity_stats: column al.action_type does not exist
+LINE 1: SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTI...
+               ^
+QUERY:  SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTINCT al.user_id) as unique_users
+    FROM public.audit_logs al
+    WHERE al.created_at BETWEEN p_start_date AND p_end_date
+    GROUP BY al.action_type
+    ORDER BY action_count DESC
+CONTEXT:  PL/pgSQL function sp_get_user_activity_stats(timestamp without time zone,timestamp without time zone) line 3 at RETURN QUERY
+2025-05-25 20:53:32,742 - ui.components.welcome_widget - ERROR - Error loading stats: Database operation failed: column al.action_type does not exist
+LINE 1: SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTI...
+               ^
+QUERY:  SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTINCT al.user_id) as unique_users
+    FROM public.audit_logs al
+    WHERE al.created_at BETWEEN p_start_date AND p_end_date
+    GROUP BY al.action_type
+    ORDER BY action_count DESC
+CONTEXT:  PL/pgSQL function sp_get_user_activity_stats(timestamp without time zone,timestamp without time zone) line 3 at RETURN QUERY
+2025-05-25 20:53:32,804 - core.database - ERROR - Error executing function sp_get_user_activity_stats with params (datetime.datetime(2025, 5, 18, 20, 53, 32, 667454), datetime.datetime(2025, 5, 25, 20, 53, 32, 667468)): column al.action_type does not exist
+LINE 1: SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTI...
+               ^
+QUERY:  SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTINCT al.user_id) as unique_users
+    FROM public.audit_logs al
+    WHERE al.created_at BETWEEN p_start_date AND p_end_date
+    GROUP BY al.action_type
+    ORDER BY action_count DESC
+CONTEXT:  PL/pgSQL function sp_get_user_activity_stats(timestamp without time zone,timestamp without time zone) line 3 at RETURN QUERY
+2025-05-25 20:53:32,872 - core.database - ERROR - Database error: column al.action_type does not exist
+LINE 1: SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTI...
+               ^
+QUERY:  SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTINCT al.user_id) as unique_users
+    FROM public.audit_logs al
+    WHERE al.created_at BETWEEN p_start_date AND p_end_date
+    GROUP BY al.action_type
+    ORDER BY action_count DESC
+CONTEXT:  PL/pgSQL function sp_get_user_activity_stats(timestamp without time zone,timestamp without time zone) line 3 at RETURN QUERY
+2025-05-25 20:53:32,872 - data_access.base_repository - ERROR - Error executing function sp_get_user_activity_stats: column al.action_type does not exist
+LINE 1: SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTI...
+               ^
+QUERY:  SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTINCT al.user_id) as unique_users
+    FROM public.audit_logs al
+    WHERE al.created_at BETWEEN p_start_date AND p_end_date
+    GROUP BY al.action_type
+    ORDER BY action_count DESC
+CONTEXT:  PL/pgSQL function sp_get_user_activity_stats(timestamp without time zone,timestamp without time zone) line 3 at RETURN QUERY
+2025-05-25 20:53:32,873 - ui.components.welcome_widget - ERROR - Error loading stats: Database operation failed: column al.action_type does not exist
+LINE 1: SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTI...
+               ^
+QUERY:  SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTINCT al.user_id) as unique_users
+    FROM public.audit_logs al
+    WHERE al.created_at BETWEEN p_start_date AND p_end_date
+    GROUP BY al.action_type
+    ORDER BY action_count DESC
+CONTEXT:  PL/pgSQL function sp_get_user_activity_stats(timestamp without time zone,timestamp without time zone) line 3 at RETURN QUERY
+2025-05-25 20:53:37,721 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x20e99da1be0>
+2025-05-25 20:53:37,929 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x20e99dd63f0>
+2025-05-25 20:53:38,134 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x20e99e20cd0>
+2025-05-25 20:53:38,338 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x20e99e20a50>
+2025-05-25 20:53:38,545 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x20e99da1be0>
+2025-05-25 20:53:38,752 - core.database - ERROR - Error executing function sp_get_user_activity_stats with params (datetime.datetime(2025, 5, 18, 20, 53, 38, 614369), datetime.datetime(2025, 5, 25, 20, 53, 38, 614380)): column al.action_type does not exist
+LINE 1: SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTI...
+               ^
+QUERY:  SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTINCT al.user_id) as unique_users
+    FROM public.audit_logs al
+    WHERE al.created_at BETWEEN p_start_date AND p_end_date
+    GROUP BY al.action_type
+    ORDER BY action_count DESC
+CONTEXT:  PL/pgSQL function sp_get_user_activity_stats(timestamp without time zone,timestamp without time zone) line 3 at RETURN QUERY
+2025-05-25 20:53:38,821 - core.database - ERROR - Database error: column al.action_type does not exist
+LINE 1: SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTI...
+               ^
+QUERY:  SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTINCT al.user_id) as unique_users
+    FROM public.audit_logs al
+    WHERE al.created_at BETWEEN p_start_date AND p_end_date
+    GROUP BY al.action_type
+    ORDER BY action_count DESC
+CONTEXT:  PL/pgSQL function sp_get_user_activity_stats(timestamp without time zone,timestamp without time zone) line 3 at RETURN QUERY
+2025-05-25 20:53:38,821 - data_access.base_repository - ERROR - Error executing function sp_get_user_activity_stats: column al.action_type does not exist
+LINE 1: SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTI...
+               ^
+QUERY:  SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTINCT al.user_id) as unique_users
+    FROM public.audit_logs al
+    WHERE al.created_at BETWEEN p_start_date AND p_end_date
+    GROUP BY al.action_type
+    ORDER BY action_count DESC
+CONTEXT:  PL/pgSQL function sp_get_user_activity_stats(timestamp without time zone,timestamp without time zone) line 3 at RETURN QUERY
+2025-05-25 20:53:38,822 - ui.components.welcome_widget - ERROR - Error loading stats: Database operation failed: column al.action_type does not exist
+LINE 1: SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTI...
+               ^
+QUERY:  SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTINCT al.user_id) as unique_users
+    FROM public.audit_logs al
+    WHERE al.created_at BETWEEN p_start_date AND p_end_date
+    GROUP BY al.action_type
+    ORDER BY action_count DESC
+CONTEXT:  PL/pgSQL function sp_get_user_activity_stats(timestamp without time zone,timestamp without time zone) line 3 at RETURN QUERY
+2025-05-25 20:53:53,545 - core.database - INFO - Database connection pool closed
+2025-05-25 20:55:55,814 - core.database - INFO - Database connection pool initialized successfully
+2025-05-25 20:56:00,697 - __main__ - INFO - Login cancelled by user
+2025-05-25 20:56:00,698 - core.database - INFO - Database connection pool closed
+2025-05-25 20:56:01,045 - core.auth - INFO - User magcurie authenticated successfully
+2025-05-25 20:56:25,675 - core.database - INFO - Database connection pool initialized successfully
+2025-05-25 20:56:33,509 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x193dd2c46e0>
+2025-05-25 20:56:33,798 - core.auth - INFO - User magcurie authenticated successfully
+2025-05-25 20:56:34,811 - __main__ - INFO - User logged in successfully: magcurie
+2025-05-25 20:56:35,038 - ui.main_window - INFO - Main window opened for user: magcurie
+2025-05-25 20:56:35,108 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x193dd2c46e0>
+2025-05-25 20:56:35,330 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x193dd2c46e0>
+2025-05-25 20:56:35,539 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x193dd330b90>
+2025-05-25 20:56:35,552 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x193dd2c46e0>
+2025-05-25 20:56:35,744 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x193dd330b90>
+2025-05-25 20:56:35,773 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x193dd2c46e0>
+2025-05-25 20:56:35,946 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x193dd330e10>
+2025-05-25 20:56:35,948 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x193dd330b90>
+2025-05-25 20:56:36,001 - core.database - ERROR - Error executing function sp_log_user_action with params (3, 'PERSONS_LIST_VIEWED', None, None, 'Просмотр списка персон', None, None, None, None): column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:56:36,075 - core.database - ERROR - Database error: column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:56:36,076 - data_access.base_repository - ERROR - Error executing function sp_log_user_action: column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:56:36,077 - services.base_service - ERROR - Failed to log action: Database operation failed: column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:56:36,146 - core.database - ERROR - Error executing function sp_log_user_action with params (3, 'COUNTRIES_LIST_VIEWED', None, None, 'Просмотр списка стран', None, None, None, None): column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:56:36,151 - core.database - ERROR - Error executing function sp_log_user_action with params (3, 'EVENTS_LIST_VIEWED', None, None, 'Просмотр списка событий', None, None, None, None): column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:56:36,214 - core.database - ERROR - Database error: column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:56:36,214 - data_access.base_repository - ERROR - Error executing function sp_log_user_action: column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:56:36,214 - services.base_service - ERROR - Failed to log action: Database operation failed: column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:56:36,219 - core.database - ERROR - Database error: column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:56:36,219 - data_access.base_repository - ERROR - Error executing function sp_log_user_action: column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:56:36,220 - services.base_service - ERROR - Failed to log action: Database operation failed: column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:56:36,224 - core.database - ERROR - Error executing function sp_log_user_action with params (3, 'DOCUMENTS_LIST_VIEWED', None, None, 'Просмотр списка документов', None, None, None, None): column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:56:36,297 - core.database - ERROR - Database error: column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:56:36,298 - data_access.base_repository - ERROR - Error executing function sp_log_user_action: column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:56:36,298 - services.base_service - ERROR - Failed to log action: Database operation failed: column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:56:36,348 - core.database - ERROR - Error executing function sp_log_user_action with params (3, 'SOURCES_LIST_VIEWED', None, None, 'Просмотр списка источников', None, None, None, None): column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:56:36,359 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x193dd330b90>
+2025-05-25 20:56:36,400 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x193dd2e6190>
+2025-05-25 20:56:36,415 - core.database - ERROR - Database error: column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:56:36,416 - data_access.base_repository - ERROR - Error executing function sp_log_user_action: column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:56:36,416 - services.base_service - ERROR - Failed to log action: Database operation failed: column "action_type" of relation "audit_logs" does not exist
+LINE 2:         user_id, action_type, entity_type, entity_id, descri...
+                         ^
+QUERY:  INSERT INTO public.audit_logs (
+        user_id, action_type, entity_type, entity_id, description,
+        old_values, new_values, ip_address, user_agent, created_at
+    )
+    VALUES (
+        p_user_id, p_action_type, p_entity_type, p_entity_id, p_description,
+        p_old_values, p_new_values, p_ip_address, p_user_agent, CURRENT_TIMESTAMP
+    )
+CONTEXT:  PL/pgSQL function sp_log_user_action(integer,character varying,character varying,integer,text,jsonb,jsonb,inet,text) line 3 at SQL statement
+2025-05-25 20:56:36,576 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x193dd2c46e0>
+2025-05-25 20:56:36,606 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x193dd330e10>
+2025-05-25 20:56:36,787 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x193dd330b90>
+2025-05-25 20:56:36,818 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x193dd2e6190>
+2025-05-25 20:56:37,002 - core.database - ERROR - Error executing function sp_get_user_activity_stats with params (datetime.datetime(2025, 5, 18, 20, 56, 36, 855260), datetime.datetime(2025, 5, 25, 20, 56, 36, 855275)): column al.action_type does not exist
+LINE 1: SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTI...
+               ^
+QUERY:  SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTINCT al.user_id) as unique_users
+    FROM public.audit_logs al
+    WHERE al.created_at BETWEEN p_start_date AND p_end_date
+    GROUP BY al.action_type
+    ORDER BY action_count DESC
+CONTEXT:  PL/pgSQL function sp_get_user_activity_stats(timestamp without time zone,timestamp without time zone) line 3 at RETURN QUERY
+2025-05-25 20:56:37,024 - psycopg.pool - WARNING - rolling back returned connection: <psycopg.Connection [INTRANS] (host=ep-plain-sunset-a948pgxc-pooler.gwc.azure.neon.tech user=history_guide_owner database=history_guide) at 0x193dd330e10>
+2025-05-25 20:56:37,076 - core.database - ERROR - Database error: column al.action_type does not exist
+LINE 1: SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTI...
+               ^
+QUERY:  SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTINCT al.user_id) as unique_users
+    FROM public.audit_logs al
+    WHERE al.created_at BETWEEN p_start_date AND p_end_date
+    GROUP BY al.action_type
+    ORDER BY action_count DESC
+CONTEXT:  PL/pgSQL function sp_get_user_activity_stats(timestamp without time zone,timestamp without time zone) line 3 at RETURN QUERY
+2025-05-25 20:56:37,077 - data_access.base_repository - ERROR - Error executing function sp_get_user_activity_stats: column al.action_type does not exist
+LINE 1: SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTI...
+               ^
+QUERY:  SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTINCT al.user_id) as unique_users
+    FROM public.audit_logs al
+    WHERE al.created_at BETWEEN p_start_date AND p_end_date
+    GROUP BY al.action_type
+    ORDER BY action_count DESC
+CONTEXT:  PL/pgSQL function sp_get_user_activity_stats(timestamp without time zone,timestamp without time zone) line 3 at RETURN QUERY
+2025-05-25 20:56:37,077 - ui.components.welcome_widget - ERROR - Error loading stats: Database operation failed: column al.action_type does not exist
+LINE 1: SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTI...
+               ^
+QUERY:  SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTINCT al.user_id) as unique_users
+    FROM public.audit_logs al
+    WHERE al.created_at BETWEEN p_start_date AND p_end_date
+    GROUP BY al.action_type
+    ORDER BY action_count DESC
+CONTEXT:  PL/pgSQL function sp_get_user_activity_stats(timestamp without time zone,timestamp without time zone) line 3 at RETURN QUERY
+2025-05-25 20:56:37,226 - core.database - ERROR - Error executing function sp_get_user_activity_stats with params (datetime.datetime(2025, 5, 18, 20, 56, 37, 91038), datetime.datetime(2025, 5, 25, 20, 56, 37, 91048)): column al.action_type does not exist
+LINE 1: SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTI...
+               ^
+QUERY:  SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTINCT al.user_id) as unique_users
+    FROM public.audit_logs al
+    WHERE al.created_at BETWEEN p_start_date AND p_end_date
+    GROUP BY al.action_type
+    ORDER BY action_count DESC
+CONTEXT:  PL/pgSQL function sp_get_user_activity_stats(timestamp without time zone,timestamp without time zone) line 3 at RETURN QUERY
+2025-05-25 20:56:37,294 - core.database - ERROR - Database error: column al.action_type does not exist
+LINE 1: SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTI...
+               ^
+QUERY:  SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTINCT al.user_id) as unique_users
+    FROM public.audit_logs al
+    WHERE al.created_at BETWEEN p_start_date AND p_end_date
+    GROUP BY al.action_type
+    ORDER BY action_count DESC
+CONTEXT:  PL/pgSQL function sp_get_user_activity_stats(timestamp without time zone,timestamp without time zone) line 3 at RETURN QUERY
+2025-05-25 20:56:37,295 - data_access.base_repository - ERROR - Error executing function sp_get_user_activity_stats: column al.action_type does not exist
+LINE 1: SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTI...
+               ^
+QUERY:  SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTINCT al.user_id) as unique_users
+    FROM public.audit_logs al
+    WHERE al.created_at BETWEEN p_start_date AND p_end_date
+    GROUP BY al.action_type
+    ORDER BY action_count DESC
+CONTEXT:  PL/pgSQL function sp_get_user_activity_stats(timestamp without time zone,timestamp without time zone) line 3 at RETURN QUERY
+2025-05-25 20:56:37,295 - ui.components.welcome_widget - ERROR - Error loading stats: Database operation failed: column al.action_type does not exist
+LINE 1: SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTI...
+               ^
+QUERY:  SELECT al.action_type, COUNT(*) as action_count, COUNT(DISTINCT al.user_id) as unique_users
+    FROM public.audit_logs al
+    WHERE al.created_at BETWEEN p_start_date AND p_end_date
+    GROUP BY al.action_type
+    ORDER BY action_count DESC
+CONTEXT:  PL/pgSQL function sp_get_user_activity_stats(timestamp without time zone,timestamp without time zone) line 3 at RETURN QUERY

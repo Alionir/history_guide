@@ -1,0 +1,5 @@
+PyQt6
+psycopg[binary]
+bcrypt
+python-dotenv
+dataclasses-json
