@@ -4,6 +4,7 @@ from datetime import date
 from .base_service import BaseService
 from data_access import SourceRepository, RelationshipsRepository
 from core.exceptions import ValidationError, EntityNotFoundError
+from  utils.date_helpers import safe_date_convert
 
 class SourceService(BaseService):
     """Сервис для работы с источниками"""
@@ -83,7 +84,7 @@ class SourceService(BaseService):
             user_id=user_id,
             name=source_data['name'].strip(),
             author=source_data.get('author', '').strip() or None,
-            publication_date=source_data.get('publication_date'),
+            publication_date=safe_date_convert(source_data.get('publication_date')),
             source_type=source_data.get('source_type', '').strip() or None,
             url=source_data.get('url', '').strip() or None
         )
@@ -91,6 +92,103 @@ class SourceService(BaseService):
         if result['success']:
             self._log_action(user_id, 'SOURCE_CREATE_REQUESTED', 'SOURCE', None,
                             f'Создана заявка на добавление источника: {source_data["name"]}')
+        
+        return result
+    
+    def create_source_direct(self, moderator_id: int, source_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Прямое создание источника (для модераторов)"""
+        # Проверяем права модератора
+        self._validate_user_permissions(moderator_id, 2)
+        
+        # Валидация данных
+        self._validate_source_data(source_data)
+        
+        # Создаем источник
+        result = self.source_repo.create_direct(
+            moderator_id=moderator_id,
+            name=source_data['name'].strip(),
+            author=source_data.get('author', '').strip() or None,
+            publication_date=safe_date_convert(source_data.get('publication_date')),
+            source_type=source_data.get('source_type', '').strip() or None,
+            url=source_data.get('url', '').strip() or None
+        )
+        
+        if result['success']:
+            self._log_action(moderator_id, 'SOURCE_CREATED_DIRECT', 'SOURCE', result['source_id'],
+                            f'Прямое создание источника: {source_data["name"]}')
+        
+        return result
+    
+    def update_source_request(self, user_id: int, source_id: int, source_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Создание заявки на изменение источника"""
+        # Проверяем существование источника
+        existing_source = self.source_repo.get_by_id(source_id)
+        if not existing_source:
+            raise EntityNotFoundError("Источник не найден")
+        
+        # Валидация данных
+        self._validate_source_data(source_data)
+        
+        # Создаем заявку на изменение
+        result = self.source_repo.request_update(
+            user_id=user_id,
+            source_id=source_id,
+            name=source_data['name'].strip(),
+            author=source_data.get('author', '').strip() or None,
+            publication_date=safe_date_convert(source_data.get('publication_date')),
+            source_type=source_data.get('source_type', '').strip() or None,
+            url=source_data.get('url', '').strip() or None
+        )
+        
+        if result['success']:
+            self._log_action(user_id, 'SOURCE_UPDATE_REQUESTED', 'SOURCE', source_id,
+                            f'Создана заявка на изменение источника: {existing_source["name"]}')
+        
+        return result
+    
+    def update_source_direct(self, moderator_id: int, source_id: int, source_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Прямое обновление источника (для модераторов)"""
+        # Проверяем права модератора
+        self._validate_user_permissions(moderator_id, 2)
+        
+        # Проверяем существование источника
+        existing_source = self.source_repo.get_by_id(source_id)
+        if not existing_source:
+            raise EntityNotFoundError("Источник не найден")
+        
+        # Валидация данных
+        self._validate_source_data(source_data)
+        
+        # Обновляем источник
+        result = self.source_repo.update_direct(
+            moderator_id=moderator_id,
+            source_id=source_id,
+            name=source_data['name'].strip(),
+            author=source_data.get('author', '').strip() or None,
+            publication_date=safe_date_convert(source_data.get('publication_date')),
+            source_type=source_data.get('source_type', '').strip() or None,
+            url=source_data.get('url', '').strip() or None
+        )
+        
+        if result['success']:
+            self._log_action(moderator_id, 'SOURCE_UPDATED_DIRECT', 'SOURCE', source_id,
+                            f'Прямое обновление источника: {existing_source["name"]}')
+        
+        return result
+    
+    def delete_source_request(self, user_id: int, source_id: int, reason: str = None) -> Dict[str, Any]:
+        """Создание заявки на удаление источника"""
+        # Проверяем существование источника
+        existing_source = self.source_repo.get_by_id(source_id)
+        if not existing_source:
+            raise EntityNotFoundError("Источник не найден")
+        
+        # Создаем заявку на удаление
+        result = self.source_repo.request_delete(user_id, source_id, reason)
+        
+        if result['success']:
+            self._log_action(user_id, 'SOURCE_DELETE_REQUESTED', 'SOURCE', source_id,
+                            f'Создана заявка на удаление источника: {existing_source["name"]}')
         
         return result
     

@@ -3,7 +3,7 @@ from datetime import date
 from .base_service import BaseService
 from data_access import DocumentRepository, RelationshipsRepository
 from core.exceptions import ValidationError, EntityNotFoundError
-
+from  utils.date_helpers import safe_date_convert
 class DocumentService(BaseService):
     """Сервис для работы с документами"""
     
@@ -83,12 +83,103 @@ class DocumentService(BaseService):
             user_id=user_id,
             name=document_data['name'].strip(),
             content=document_data['content'].strip(),
-            creating_date=document_data.get('creating_date')
+            creating_date=safe_date_convert(document_data.get('creating_date'))
         )
         
         if result['success']:
             self._log_action(user_id, 'DOCUMENT_CREATE_REQUESTED', 'DOCUMENT', None,
                             f'Создана заявка на добавление документа: {document_data["name"]}')
+        
+        return result
+    
+    def create_document_direct(self, moderator_id: int, document_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Прямое создание документа (для модераторов)"""
+        # Проверяем права модератора
+        self._validate_user_permissions(moderator_id, 2)
+        
+        # Валидация данных
+        self._validate_document_data(document_data)
+        
+        # Создаем документ
+        result = self.document_repo.create_direct(
+            moderator_id=moderator_id,
+            name=document_data['name'].strip(),
+            content=document_data['content'].strip(),
+            creating_date=safe_date_convert(document_data.get('creating_date'))
+        )
+        
+        if result['success']:
+            self._log_action(moderator_id, 'DOCUMENT_CREATED_DIRECT', 'DOCUMENT', result['document_id'],
+                            f'Прямое создание документа: {document_data["name"]}')
+        
+        return result
+    
+    def update_document_request(self, user_id: int, document_id: int, document_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Создание заявки на изменение документа"""
+        # Проверяем существование документа
+        existing_document = self.document_repo.get_by_id(document_id)
+        if not existing_document:
+            raise EntityNotFoundError("Документ не найден")
+        
+        # Валидация данных
+        self._validate_document_data(document_data)
+        
+        # Создаем заявку на изменение
+        result = self.document_repo.request_update(
+            user_id=user_id,
+            document_id=document_id,
+            name=document_data['name'].strip(),
+            content=document_data['content'].strip(),
+            creating_date=safe_date_convert(document_data.get('creating_date'))
+        )
+        
+        if result['success']:
+            self._log_action(user_id, 'DOCUMENT_UPDATE_REQUESTED', 'DOCUMENT', document_id,
+                            f'Создана заявка на изменение документа: {existing_document["name"]}')
+        
+        return result
+    
+    def update_document_direct(self, moderator_id: int, document_id: int, document_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Прямое обновление документа (для модераторов)"""
+        # Проверяем права модератора
+        self._validate_user_permissions(moderator_id, 2)
+        
+        # Проверяем существование документа
+        existing_document = self.document_repo.get_by_id(document_id)
+        if not existing_document:
+            raise EntityNotFoundError("Документ не найден")
+        
+        # Валидация данных
+        self._validate_document_data(document_data)
+        
+        # Обновляем документ
+        result = self.document_repo.update_direct(
+            moderator_id=moderator_id,
+            document_id=document_id,
+            name=document_data['name'].strip(),
+            content=document_data['content'].strip(),
+            creating_date=safe_date_convert(document_data.get('creating_date'))
+        )
+        
+        if result['success']:
+            self._log_action(moderator_id, 'DOCUMENT_UPDATED_DIRECT', 'DOCUMENT', document_id,
+                            f'Прямое обновление документа: {existing_document["name"]}')
+        
+        return result
+    
+    def delete_document_request(self, user_id: int, document_id: int, reason: str = None) -> Dict[str, Any]:
+        """Создание заявки на удаление документа"""
+        # Проверяем существование документа
+        existing_document = self.document_repo.get_by_id(document_id)
+        if not existing_document:
+            raise EntityNotFoundError("Документ не найден")
+        
+        # Создаем заявку на удаление
+        result = self.document_repo.request_delete(user_id, document_id, reason)
+        
+        if result['success']:
+            self._log_action(user_id, 'DOCUMENT_DELETE_REQUESTED', 'DOCUMENT', document_id,
+                            f'Создана заявка на удаление документа: {existing_document["name"]}')
         
         return result
     

@@ -3,3 +3,4 @@ psycopg[binary]
 bcrypt
 python-dotenv
 dataclasses-json
+matplotlib

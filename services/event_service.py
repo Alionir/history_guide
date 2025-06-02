@@ -3,7 +3,7 @@ from datetime import date
 from .base_service import BaseService
 from data_access import EventRepository, RelationshipsRepository
 from core.exceptions import ValidationError, EntityNotFoundError
-
+from  utils.date_helpers import safe_date_convert
 class EventService(BaseService):
     """Сервис для работы с событиями"""
     
@@ -104,8 +104,8 @@ class EventService(BaseService):
             user_id=user_id,
             name=event_data['name'].strip(),
             description=event_data.get('description', '').strip() or None,
-            start_date=event_data.get('start_date'),
-            end_date=event_data.get('end_date'),
+            start_date=safe_date_convert(event_data.get('start_date')),
+            end_date=safe_date_convert(event_data.get('end_date')),
             location=event_data.get('location', '').strip() or None,
             event_type=event_data.get('event_type', '').strip() or None,
             parent_id=event_data.get('parent_id')
@@ -130,8 +130,8 @@ class EventService(BaseService):
             moderator_id=moderator_id,
             name=event_data['name'].strip(),
             description=event_data.get('description', '').strip() or None,
-            start_date=event_data.get('start_date'),
-            end_date=event_data.get('end_date'),
+            start_date=safe_date_convert(event_data.get('start_date')),
+            end_date=safe_date_convert(event_data.get('end_date')),
             location=event_data.get('location', '').strip() or None,
             event_type=event_data.get('event_type', '').strip() or None,
             parent_id=event_data.get('parent_id')
@@ -198,3 +198,94 @@ class EventService(BaseService):
             parent_event = self.event_repo.get_by_id(parent_id)
             if not parent_event:
                 raise ValidationError("Родительское событие не найдено")
+    def update_event_request(self, user_id: int, event_id: int, event_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Создание заявки на изменение события"""
+        # Проверяем существование события
+        existing_event = self.event_repo.get_by_id(event_id)
+        if not existing_event:
+            raise EntityNotFoundError("Событие не найдено")
+        
+        # Валидация данных
+        self._validate_event_data(event_data)
+        
+        # Создаем заявку на изменение
+        result = self.event_repo.request_update(
+            user_id=user_id,
+            event_id=event_id,
+            name=event_data['name'].strip(),
+            description=event_data.get('description', '').strip() or None,
+            start_date=safe_date_convert(event_data.get('start_date')),
+            end_date=safe_date_convert(event_data.get('end_date')),
+            location=event_data.get('location', '').strip() or None,
+            event_type=event_data.get('event_type', '').strip() or None,
+            parent_id=event_data.get('parent_id')
+        )
+        
+        if result['success']:
+            self._log_action(user_id, 'EVENT_UPDATE_REQUESTED', 'EVENT', event_id,
+                            f'Создана заявка на изменение события: {existing_event["name"]}')
+        
+        return result
+
+    def update_event_direct(self, moderator_id: int, event_id: int, event_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Прямое обновление события (для модераторов) - улучшенная версия"""
+        # Проверяем права модератора
+        self._validate_user_permissions(moderator_id, 2)
+        
+        # Проверяем существование события
+        existing_event = self.event_repo.get_by_id(event_id)
+        if not existing_event:
+            raise EntityNotFoundError("Событие не найдено")
+        
+        # Валидация данных
+        self._validate_event_data(event_data)
+        
+        # Проверяем, что событие не назначается родителем самому себе
+        if event_data.get('parent_id') == event_id:
+            raise ValidationError("Событие не может быть родителем самому себе")
+        
+        # Проверяем циклические ссылки при установке родителя
+        if event_data.get('parent_id'):
+            if self._check_circular_reference(event_id, event_data['parent_id']):
+                raise ValidationError("Обнаружена циклическая ссылка в иерархии событий")
+        
+        # Сохраняем старые значения для аудита
+        old_values = {
+            'name': existing_event['name'],
+            'description': existing_event.get('description'),
+            'start_date': existing_event.get('start_date'),
+            'end_date': existing_event.get('end_date'),
+            'location': existing_event.get('location'),
+            'event_type': existing_event.get('event_type'),
+            'parent_id': existing_event.get('parent_id')
+        }
+        
+        # Обновляем событие
+        result = self.event_repo.update_direct(
+            moderator_id=moderator_id,
+            event_id=event_id,
+            name=event_data['name'].strip(),
+            description=event_data.get('description', '').strip() or None,
+            start_date=safe_date_convert(event_data.get('start_date')),
+            end_date=safe_date_convert(event_data.get('end_date')),
+            location=event_data.get('location', '').strip() or None,
+            event_type=event_data.get('event_type', '').strip() or None,
+            parent_id=event_data.get('parent_id')
+        )
+        
+        if result['success']:
+            new_values = {
+                'name': event_data['name'].strip(),
+                'description': event_data.get('description', '').strip() or None,
+                'start_date': event_data.get('start_date'),
+                'end_date': event_data.get('end_date'),
+                'location': event_data.get('location', '').strip() or None,
+                'event_type': event_data.get('event_type', '').strip() or None,
+                'parent_id': event_data.get('parent_id')
+            }
+            
+            self._log_action(moderator_id, 'EVENT_UPDATED_DIRECT', 'EVENT', event_id,
+                            f'Прямое обновление события: {existing_event["name"]}',
+                            old_values, new_values)
+        
+        return result

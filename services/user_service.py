@@ -6,6 +6,7 @@ from .base_service import BaseService
 from data_access import UserRepository
 from core.exceptions import AuthenticationError, ValidationError, DuplicateEntityError, EntityNotFoundError
 from core.auth import AuthService
+
 class UserService(BaseService):
     """Сервис для работы с пользователями"""
     
@@ -24,22 +25,22 @@ class UserService(BaseService):
             self._log_action(0, 'LOGIN_FAILED', description=f'Неудачная попытка входа: {username}')
             raise AuthenticationError("Неверное имя пользователя или пароль")
         
-        # Проверяем пароль
-        if not self._verify_password(password, user['password_hash']):
-            self._log_action(user['user_id'], 'LOGIN_FAILED', description='Неверный пароль')
+        # Проверяем пароль - используем password_hash из объекта User
+        if not self._verify_password(password, user.password_hash):
+            self._log_action(user.user_id, 'LOGIN_FAILED', description='Неверный пароль')
             raise AuthenticationError("Неверное имя пользователя или пароль")
         
         # Успешная аутентификация
-        self._log_action(user['user_id'], 'LOGIN_SUCCESS', description='Успешный вход в систему')
+        self._log_action(user.user_id, 'LOGIN_SUCCESS', description='Успешный вход в систему')
         
         # Возвращаем данные пользователя без пароля
         return {
-            'user_id': user['user_id'],
-            'username': user['username'],
-            'email': user['email'],
-            'role_id': user['role_id'],
-            'role_name': user.get('role_name', ''),
-            'created_at': user['created_at']
+            'user_id': user.user_id,
+            'username': user.username,
+            'email': user.email,
+            'role_id': user.role_id,
+            'role_name': self._get_role_name(user.role_id),
+            'created_at': user.created_at
         }
     
     def register_user(self, username: str, email: str, password: str, 
@@ -82,13 +83,17 @@ class UserService(BaseService):
             'message': 'Пользователь успешно зарегистрирован'
         }
     
-    def update_user_profile(self, user_id: int, email: str, current_password: str = None,
-                           new_password: str = None, confirm_password: str = None) -> Dict[str, Any]:
+    def update_user_profile(self, user_id: int, user_data: Dict[str, Any]) -> Dict[str, Any]:
         """Обновление профиля пользователя"""
-        # Проверяем существование пользователя
-        user = self.user_repo.get_by_id(user_id)
-        if not user:
+        # Получаем пользователя через get_by_id (возвращает словарь)
+        user_dict = self.user_repo.get_by_id(user_id)
+        if not user_dict:
             raise EntityNotFoundError("Пользователь не найден")
+        
+        email = user_data.get('email')
+        current_password = user_data.get('current_password')
+        new_password = user_data.get('new_password')
+        confirm_password = user_data.get('confirm_password')
         
         # Валидация email
         if not email or not self._is_valid_email(email):
@@ -100,7 +105,7 @@ class UserService(BaseService):
             if not current_password:
                 raise ValidationError("Для изменения пароля необходимо указать текущий пароль")
             
-            if not self._verify_password(current_password, user['password_hash']):
+            if not self._verify_password(current_password, user_dict['password_hash']):
                 raise ValidationError("Неверный текущий пароль")
             
             if new_password != confirm_password:
@@ -130,8 +135,8 @@ class UserService(BaseService):
         self._validate_user_permissions(admin_id, 3)  # Роль администратора
         
         # Проверяем существование пользователя
-        user = self.user_repo.get_by_id(user_id)
-        if not user:
+        user_dict = self.user_repo.get_by_id(user_id)
+        if not user_dict:
             raise EntityNotFoundError("Пользователь не найден")
         
         # Нельзя изменить роль самому себе
@@ -150,11 +155,11 @@ class UserService(BaseService):
         if not success:
             raise ValidationError("Не удалось изменить роль пользователя")
         
-        old_role = next((r['name'] for r in roles if r['role_id'] == user['role_id']), 'Неизвестно')
+        old_role = next((r['name'] for r in roles if r['role_id'] == user_dict['role_id']), 'Неизвестно')
         new_role = next((r['name'] for r in roles if r['role_id'] == new_role_id), 'Неизвестно')
         
         self._log_action(admin_id, 'USER_ROLE_CHANGED', 'USER', user_id,
-                        f'Роль пользователя {user["username"]} изменена с {old_role} на {new_role}')
+                        f'Роль пользователя {user_dict["username"]} изменена с {old_role} на {new_role}')
         
         return {
             'success': True,
@@ -172,6 +177,11 @@ class UserService(BaseService):
         self._log_action(admin_id, 'USERS_LIST_VIEWED', description='Просмотр списка пользователей')
         
         return users
+    
+    def _get_role_name(self, role_id: int) -> str:
+        """Получение названия роли по ID"""
+        role_names = {1: 'Пользователь', 2: 'Модератор', 3: 'Администратор'}
+        return role_names.get(role_id, 'Неизвестно')
     
     def _validate_registration_data(self, username: str, email: str, password: str, confirm_password: str) -> None:
         """Валидация данных регистрации"""

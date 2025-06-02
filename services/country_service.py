@@ -3,7 +3,7 @@ from datetime import date
 from .base_service import BaseService
 from data_access import CountryRepository, RelationshipsRepository
 from core.exceptions import ValidationError, EntityNotFoundError
-
+from  utils.date_helpers import safe_date_convert
 class CountryService(BaseService):
     """Сервис для работы со странами"""
     
@@ -89,8 +89,8 @@ class CountryService(BaseService):
             user_id=user_id,
             name=country_data['name'].strip(),
             capital=country_data.get('capital', '').strip() or None,
-            foundation_date=country_data.get('foundation_date'),
-            dissolution_date=country_data.get('dissolution_date'),
+            foundation_date=safe_date_convert(country_data.get('foundation_date')),
+            dissolution_date=safe_date_convert(country_data.get('dissolution_date')),
             description=country_data.get('description', '').strip() or None
         )
         
@@ -113,8 +113,8 @@ class CountryService(BaseService):
             moderator_id=moderator_id,
             name=country_data['name'].strip(),
             capital=country_data.get('capital', '').strip() or None,
-            foundation_date=country_data.get('foundation_date'),
-            dissolution_date=country_data.get('dissolution_date'),
+            foundation_date=safe_date_convert(country_data.get('foundation_date')),
+            dissolution_date=safe_date_convert(country_data.get('dissolution_date')),
             description=country_data.get('description', '').strip() or None
         )
         
@@ -175,8 +175,8 @@ class CountryService(BaseService):
             raise ValidationError("Название столицы не может содержать более 100 символов")
         
         # Проверка дат
-        foundation_date = country_data.get('foundation_date')
-        dissolution_date = country_data.get('dissolution_date')
+        foundation_date = (country_data.get('foundation_date'))
+        dissolution_date = (country_data.get('dissolution_date'))
         
         if foundation_date and foundation_date > date.today():
             raise ValidationError("Дата основания не может быть в будущем")
@@ -191,3 +191,78 @@ class CountryService(BaseService):
         description = country_data.get('description', '').strip()
         if description and len(description) > 5000:
             raise ValidationError("Описание не может содержать более 5000 символов")
+        
+    def update_country_request(self, user_id: int, country_id: int, country_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Создание заявки на изменение страны"""
+        # Проверяем существование страны
+        existing_country = self.country_repo.get_by_id(country_id)
+        if not existing_country:
+            raise EntityNotFoundError("Страна не найдена")
+        
+        # Валидация данных
+        self._validate_country_data(country_data)
+        
+        # Создаем заявку на изменение
+        result = self.country_repo.request_update(
+            user_id=user_id,
+            country_id=country_id,
+            name=country_data['name'].strip(),
+            capital=country_data.get('capital', '').strip() or None,
+            foundation_date=safe_date_convert(country_data.get('foundation_date')),
+            dissolution_date=safe_date_convert(country_data.get('dissolution_date')),
+            description=country_data.get('description', '').strip() or None
+        )
+        
+        if result['success']:
+            self._log_action(user_id, 'COUNTRY_UPDATE_REQUESTED', 'COUNTRY', country_id,
+                            f'Создана заявка на изменение страны: {existing_country["name"]}')
+        
+        return result
+
+    def update_country_direct(self, moderator_id: int, country_id: int, country_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Прямое обновление страны (для модераторов) - улучшенная версия"""
+        # Проверяем права модератора
+        self._validate_user_permissions(moderator_id, 2)
+        
+        # Проверяем существование страны
+        existing_country = self.country_repo.get_by_id(country_id)
+        if not existing_country:
+            raise EntityNotFoundError("Страна не найдена")
+        
+        # Валидация данных
+        self._validate_country_data(country_data)
+        
+        # Сохраняем старые значения для аудита
+        old_values = {
+            'name': existing_country['name'],
+            'capital': existing_country.get('capital'),
+            'foundation_date': existing_country.get('foundation_date'),
+            'dissolution_date': existing_country.get('dissolution_date'),
+            'description': existing_country.get('description')
+        }
+        
+        # Обновляем страну
+        result = self.country_repo.update_direct(
+            moderator_id=moderator_id,
+            country_id=country_id,
+            name=country_data['name'].strip(),
+            capital=country_data.get('capital', '').strip() or None,
+            foundation_date=safe_date_convert(country_data.get('foundation_date')),
+            dissolution_date=safe_date_convert(country_data.get('dissolution_date')),
+            description=country_data.get('description', '').strip() or None
+        )
+        
+        if result['success']:
+            new_values = {
+                'name': country_data['name'].strip(),
+                'capital': country_data.get('capital', '').strip() or None,
+                'foundation_date': country_data.get('foundation_date'),
+                'dissolution_date': country_data.get('dissolution_date'),
+                'description': country_data.get('description', '').strip() or None
+            }
+            
+            self._log_action(moderator_id, 'COUNTRY_UPDATED_DIRECT', 'COUNTRY', country_id,
+                            f'Прямое обновление страны: {existing_country["name"]}',
+                            old_values, new_values)
+        
+        return result

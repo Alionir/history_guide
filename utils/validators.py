@@ -15,7 +15,7 @@ class BaseValidator:
         if not isinstance(value, str):
             raise ValidationError(f"Поле '{field_name}' должно быть строкой")
         
-        cleaned_value = value.strip()
+        cleaned_value = value.strip()  # Здесь value уже точно строка
         
         if len(cleaned_value) < min_length:
             raise ValidationError(f"Поле '{field_name}' должно содержать минимум {min_length} символов")
@@ -24,17 +24,23 @@ class BaseValidator:
             raise ValidationError(f"Поле '{field_name}' не может содержать более {max_length} символов")
         
         return cleaned_value
-    
+
     @staticmethod
     def validate_optional_string(value: Any, field_name: str, max_length: int = None) -> Optional[str]:
         """Валидация опциональной строки"""
-        if value is None or (isinstance(value, str) and not value.strip()):
+        # ИСПРАВЛЕНО: Добавлена проверка на None
+        if value is None:
             return None
         
         if not isinstance(value, str):
+            # Если это не строка, но и не None - ошибка
             raise ValidationError(f"Поле '{field_name}' должно быть строкой")
         
         cleaned_value = value.strip()
+        
+        # Если после очистки пустая строка - возвращаем None
+        if not cleaned_value:
+            return None
         
         if max_length and len(cleaned_value) > max_length:
             raise ValidationError(f"Поле '{field_name}' не может содержать более {max_length} символов")

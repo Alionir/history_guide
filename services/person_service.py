@@ -3,7 +3,7 @@ from datetime import date
 from .base_service import BaseService
 from data_access import PersonRepository, CountryRepository, RelationshipsRepository
 from core.exceptions import ValidationError, EntityNotFoundError
-
+from  utils.date_helpers import safe_date_convert
 class PersonService(BaseService):
     """Сервис для работы с персонами"""
     
@@ -91,8 +91,8 @@ class PersonService(BaseService):
             name=person_data['name'].strip(),
             surname=person_data.get('surname', '').strip() or None,
             patronymic=person_data.get('patronymic', '').strip() or None,
-            date_of_birth=person_data.get('date_of_birth'),
-            date_of_death=person_data.get('date_of_death'),
+            date_of_birth=safe_date_convert(person_data.get('date_of_birth')),
+            date_of_death=safe_date_convert(person_data.get('date_of_death')),
             biography=person_data.get('biography', '').strip() or None,
             country_id=person_data.get('country_id')
         )
@@ -117,8 +117,8 @@ class PersonService(BaseService):
             name=person_data['name'].strip(),
             surname=person_data.get('surname', '').strip() or None,
             patronymic=person_data.get('patronymic', '').strip() or None,
-            date_of_birth=person_data.get('date_of_birth'),
-            date_of_death=person_data.get('date_of_death'),
+            date_of_birth=safe_date_convert(person_data.get('date_of_birth')),
+            date_of_death=safe_date_convert(person_data.get('date_of_death')),
             biography=person_data.get('biography', '').strip() or None,
             country_id=person_data.get('country_id')
         )
@@ -146,8 +146,8 @@ class PersonService(BaseService):
             name=person_data['name'].strip(),
             surname=person_data.get('surname', '').strip() or None,
             patronymic=person_data.get('patronymic', '').strip() or None,
-            date_of_birth=person_data.get('date_of_birth'),
-            date_of_death=person_data.get('date_of_death'),
+            date_of_birth=safe_date_convert(person_data.get('date_of_birth')),
+            date_of_death=safe_date_convert(person_data.get('date_of_death')),
             biography=person_data.get('biography', '').strip() or None,
             country_id=person_data.get('country_id')
         )
@@ -178,8 +178,8 @@ class PersonService(BaseService):
             name=person_data['name'].strip(),
             surname=person_data.get('surname', '').strip() or None,
             patronymic=person_data.get('patronymic', '').strip() or None,
-            date_of_birth=person_data.get('date_of_birth'),
-            date_of_death=person_data.get('date_of_death'),
+            date_of_birth=safe_date_convert(person_data.get('date_of_birth')),
+            date_of_death=safe_date_convert(person_data.get('date_of_death')),
             biography=person_data.get('biography', '').strip() or None,
             country_id=person_data.get('country_id')
         )
